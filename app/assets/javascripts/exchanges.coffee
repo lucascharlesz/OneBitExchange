@@ -3,7 +3,16 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
 
-  $('form').submit ->
+  $('input[name=amount]').keyup ->
+    exchange()
+
+  $('#switch_currency').click ->
+    helper = $("#source_currency").val()
+    $("#source_currency").val($("#target_currency").val())
+    $("#target_currency").val(helper)
+    exchange()
+
+  exchange = ->
     if $('form').attr('action') == '/convert'
       $.ajax '/convert',
           type: 'GET'
